@@ -1,3 +1,6 @@
+# bash completion for meteor     -*- shell-script -*-
+# vim: ft=sh
+
 _meteor() {
   local cur prev commands
   COMPREPLY=()
@@ -5,25 +8,25 @@ _meteor() {
   prev="${COMP_WORDS[COMP_CWORD-1]}"
 
   commands=" \
-  help \
-  run \
-  create \
-  update \
-  add \
-  remove \
-  list \
-  bundle \
-  mongo \
-  reset \
-  deploy \
-  logs \
-  authorized \
-  claim \
-  login \
-  logout \
-  whoami \
-  test-packages \
-  list-sites"
+    help \
+    run \
+    create \
+    update \
+    add \
+    remove \
+    list \
+    bundle \
+    mongo \
+    reset \
+    deploy \
+    logs \
+    authorized \
+    claim \
+    login \
+    logout \
+    whoami \
+    test-packages \
+    list-sites"
 
   case "${prev}" in
     --example)
