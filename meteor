@@ -8,15 +8,22 @@ _meteor() {
   help \
   run \
   create \
-  deploy \
-  logs \
   update \
   add \
   remove \
   list \
+  bundle \
   mongo \
   reset \
-  bundle"
+  deploy \
+  logs \
+  authorized \
+  claim \
+  login \
+  logout \
+  whoami \
+  test-packages \
+  list-sites"
 
   case "${prev}" in
     --example)
