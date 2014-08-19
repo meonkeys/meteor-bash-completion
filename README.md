@@ -1,4 +1,4 @@
-# meteor-bash-completion
+# Meteor Bash Completion
 
 [Bash shell completions](http://www.tldp.org/LDP/abs/html/tabexpansion.html)
 for the [Meteor](https://www.meteor.com) command-line utility.
