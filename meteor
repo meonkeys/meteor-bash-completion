@@ -5,6 +5,8 @@ __initMeteorCommands() {
   test "$meteorCommands" && return 0
   meteorCommands=$( $1 help | \grep '^   \w' | sed -e 's/^[ \t]\+//' | cut -d' ' -f1)
   meteorCommands="$meteorCommands $( _parse_usage $1 help)"
+  # can't easily parse out the help command
+  meteorCommands="help $meteorCommands $( _parse_usage $1 help)"
 }
 
 __initMeteorAddArgs() {
@@ -82,6 +84,15 @@ _meteor() {
     add)
       __initMeteorAddArgs $1
       COMPREPLY=($(compgen -W "$meteorAddArgs" -- ${cur}))
+      return 0
+      ;;
+
+    remove)
+      if [[ -r .meteor/packages ]]
+      then
+        installed=$( grep -v '^#' .meteor/packages )
+      fi
+      COMPREPLY=($(compgen -W "$installed" -- ${cur}))
       return 0
       ;;
 
