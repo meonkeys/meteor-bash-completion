@@ -2,38 +2,14 @@
 # vim: ft=sh ts=2 sw=2 et
 
 __initMeteorCommands() {
-  local commandName=$1
-  local cacheFilename=.meteor-bash-completion-cache-commands
-  local cacheDir=~
-  local cache=$cacheDir/$cacheFilename
-  # cache is readable and younger than 24 hours
-  if [[ -r $cache ]] && test $( find $cacheDir -name $cacheFilename -mtime -1 )
-  then
-    meteorCommands=$( cat $cache )
-    return 0
-  fi
-  # in case there's a stale one
-  rm -f $cache
-  $commandName help | \grep '^   \w' | sed -e 's/^[ \t]\+//' | cut -d' ' -f1 >> $cache
-  _parse_usage $commandName help >> $cache
-  meteorCommands=$( cat $cache )
+  test "$meteorCommands" && return 0
+  meteorCommands=$( $1 help | \grep '^   \w' | sed -e 's/^[ \t]\+//' | cut -d' ' -f1)
+  meteorCommands="$meteorCommands $( _parse_usage $1 help)"
 }
 
 __initMeteorAddArgs() {
-  local commandName=$1
-  local cacheFilename=.meteor-bash-completion-cache-add-args
-  local cacheDir=~
-  local cache=$cacheDir/$cacheFilename
-  # cache is readable and younger than 24 hours
-  if [[ -r $cache ]] && test $( find $cacheDir -name $cacheFilename -mtime -1 )
-  then
-    meteorAddArgs=$( cat $cache )
-    return 0
-  fi
-  # in case there's a stale one
-  rm -f $cache
-  $commandName list | cut -d" " -f 1 >> $cache
-  meteorAddArgs=$( cat $cache )
+  test "$meteorAddArgs" && return 0
+  meteorAddArgs=$( $1 list | cut -d" " -f 1 ) 
 }
 
 _meteor() {
