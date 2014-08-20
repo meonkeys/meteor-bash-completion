@@ -21,6 +21,10 @@ _meteor() {
   prev="${COMP_WORDS[COMP_CWORD-1]}"
 
   case "${prev}" in
+    -*)
+      return 0
+      ;;
+
     --example)
       COMPREPLY=($(compgen -W '$( meteor create --list | grep "^  " )' -- ${cur}))
       return 0
