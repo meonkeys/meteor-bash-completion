@@ -23,41 +23,8 @@ _meteor() {
       return 0
       ;;
 
-    # These have no options or are simply too slow for dynamic completion.
-    add|claim|list|list-sites|logout|logs|publish-for-arch|reset|show|search|whoami)
-      return 0
-      ;;
-
     --example)
       COMPREPLY=($(compgen -W '$( meteor create --list | grep "^  " )' -- ${cur}))
-      return 0
-      ;;
-
-    run)
-      local run=" \
-        --port -p \
-        --production \
-        --raw-logs \
-        --settings \
-        --release \
-        --program"
-
-      COMPREPLY=($(compgen -W "${run}" -- ${cur}))
-      return 0
-      ;;
-
-    create)
-      case "${prev}" in
-        --example)
-          COMPREPLY=($(compgen -W '$( meteor create --list | grep "^  " )' -- ${cur}))
-          return 0
-          ;;
-      esac
-      local create=" \
-        --example \
-        --list"
-
-      COMPREPLY=($(compgen -W "${create}" -- ${cur}))
       return 0
       ;;
 
@@ -80,14 +47,46 @@ _meteor() {
       return 0
       ;;
 
-    test-packages)
-      local testpackages=" \
-        --port -p \
-        --deploy \
-        --production \
-        --settings"
+    create)
+      case "${prev}" in
+        --example)
+          COMPREPLY=($(compgen -W '$( meteor create --list | grep "^  " )' -- ${cur}))
+          return 0
+          ;;
+      esac
+      local create=" \
+        --example \
+        --list"
 
-      COMPREPLY=($(compgen -W "${testpackages}" -- ${cur}))
+      COMPREPLY=($(compgen -W "${create}" -- ${cur}))
+      return 0
+      ;;
+
+    deploy)
+      local deploy=" \
+        --delete -D \
+        --debug \
+        --settings \
+        --star"
+
+      COMPREPLY=($(compgen -W "${deploy}" -- ${cur}))
+      return 0
+      ;;
+
+    login)
+      local login=" \
+        --email"
+
+      COMPREPLY=($(compgen -W "${login}" -- ${cur}))
+      return 0
+      ;;
+
+    mongo)
+      local mongo=" \
+        -U \
+        --url"
+
+      COMPREPLY=($(compgen -W "${mongo}" -- ${cur}))
       return 0
       ;;
 
@@ -107,14 +106,36 @@ _meteor() {
       return 0
       ;;
 
-    deploy)
-      local deploy=" \
-        --delete -D \
-        --debug \
-        --settings \
-        --star"
+    remove)
+      if [[ -r .meteor/packages ]]
+      then
+        installed=$( grep -v '^#' .meteor/packages )
+      fi
+      COMPREPLY=($(compgen -W "$installed" -- ${cur}))
+      return 0
+      ;;
 
-      COMPREPLY=($(compgen -W "${deploy}" -- ${cur}))
+    run)
+      local run=" \
+        --port -p \
+        --production \
+        --raw-logs \
+        --settings \
+        --release \
+        --program"
+
+      COMPREPLY=($(compgen -W "${run}" -- ${cur}))
+      return 0
+      ;;
+
+    test-packages)
+      local testpackages=" \
+        --port -p \
+        --deploy \
+        --production \
+        --settings"
+
+      COMPREPLY=($(compgen -W "${testpackages}" -- ${cur}))
       return 0
       ;;
 
@@ -126,29 +147,8 @@ _meteor() {
       return 0
       ;;
 
-    login)
-      local login=" \
-        --email"
-
-      COMPREPLY=($(compgen -W "${login}" -- ${cur}))
-      return 0
-      ;;
-
-    remove)
-      if [[ -r .meteor/packages ]]
-      then
-        installed=$( grep -v '^#' .meteor/packages )
-      fi
-      COMPREPLY=($(compgen -W "$installed" -- ${cur}))
-      return 0
-      ;;
-
-    mongo)
-      local mongo=" \
-        -U \
-        --url"
-
-      COMPREPLY=($(compgen -W "${mongo}" -- ${cur}))
+    # These have no options or are simply too slow for dynamic completion.
+    add|claim|list|list-sites|logout|logs|publish-for-arch|reset|show|search|whoami)
       return 0
       ;;
   esac
