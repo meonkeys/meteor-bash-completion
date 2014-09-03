@@ -9,25 +9,19 @@ __initMeteorCommands() {
   meteorCommands="help $meteorCommands $( _parse_usage $1 help)"
 }
 
+__initMeteorExamples() {
+  test "$meteorExamples" && return 0
+  meteorExamples=$( meteor create --list | grep "^  " )
+}
+
 _meteor() {
   local cur prev commands
   COMPREPLY=()
+  cmd="${COMP_WORDS[1]}"
   cur="${COMP_WORDS[COMP_CWORD]}"
   prev="${COMP_WORDS[COMP_CWORD-1]}"
 
-  case "${prev}" in
-    # Abort after we've completed any option. This is an easy way to stop
-    # Bash's default completion behavior while we're in the middle of composing
-    # a command line.
-    -*)
-      return 0
-      ;;
-
-    --example)
-      COMPREPLY=($(compgen -W '$( meteor create --list | grep "^  " )' -- ${cur}))
-      return 0
-      ;;
-
+  case "${cmd}" in
     authorized)
       local options=" \
         --add \
@@ -50,7 +44,8 @@ _meteor() {
     create)
       case "${prev}" in
         --example)
-          COMPREPLY=($(compgen -W '$( meteor create --list | grep "^  " )' -- ${cur}))
+          __initMeteorExamples
+          COMPREPLY=($(compgen -W "${meteorExamples}" -- ${cur}))
           return 0
           ;;
       esac
