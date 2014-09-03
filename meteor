@@ -9,11 +9,6 @@ __initMeteorCommands() {
   meteorCommands="help $meteorCommands $( _parse_usage $1 help)"
 }
 
-__initMeteorAddArgs() {
-  test "$meteorAddArgs" && return 0
-  meteorAddArgs=$( $1 list | cut -d" " -f 1 ) 
-}
-
 _meteor() {
   local cur prev commands
   COMPREPLY=()
@@ -86,8 +81,6 @@ _meteor() {
       ;;
 
     add)
-      __initMeteorAddArgs $1
-      COMPREPLY=($(compgen -W "$meteorAddArgs" -- ${cur}))
       return 0
       ;;
 
