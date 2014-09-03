@@ -16,7 +16,15 @@ _meteor() {
   prev="${COMP_WORDS[COMP_CWORD-1]}"
 
   case "${prev}" in
+    # Abort after we've completed any option. This is an easy way to stop
+    # Bash's default completion behavior while we're in the middle of composing
+    # a command line.
     -*)
+      return 0
+      ;;
+
+    # These have no options or are simply too slow for dynamic completion.
+    add|claim|list|list-sites|logout|logs|publish-for-arch|reset|show|search|whoami)
       return 0
       ;;
 
@@ -123,10 +131,6 @@ _meteor() {
         --email"
 
       COMPREPLY=($(compgen -W "${login}" -- ${cur}))
-      return 0
-      ;;
-
-    add|claim|list|list-sites|logout|logs|publish-for-arch|reset|show|search|whoami)
       return 0
       ;;
 
