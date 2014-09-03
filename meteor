@@ -3,10 +3,10 @@
 
 __initMeteorCommands() {
   test "$meteorCommands" && return 0
-  meteorCommands=$( $1 help | \grep '^   \w' | sed -e 's/^[ \t]\+//' | cut -d' ' -f1)
-  meteorCommands="$meteorCommands $( _parse_usage $1 help)"
+  meteorCommands=$( meteor help | \grep '^   \w' | sed -e 's/^[ \t]\+//' | cut -d' ' -f1)
+  meteorCommands="$meteorCommands $( _parse_usage meteor help)"
   # can't easily parse out the help command
-  meteorCommands="help $meteorCommands $( _parse_usage $1 help)"
+  meteorCommands="help $meteorCommands $( _parse_usage meteor help)"
 }
 
 __initMeteorExamples() {
@@ -148,7 +148,7 @@ _meteor() {
       ;;
   esac
 
-  __initMeteorCommands $1
+  __initMeteorCommands
   COMPREPLY=($(compgen -W "${meteorCommands}" -- ${cur}))
   return 0
 }
