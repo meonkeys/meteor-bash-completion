@@ -53,6 +53,52 @@ _meteor() {
       return 0
       ;;
 
+    authorized)
+      local authorized=" \
+        --add \
+        --remove \
+        --list"
+
+      COMPREPLY=($(compgen -W "${authorized}" -- ${cur}))
+      return 0
+      ;;
+
+    bundle)
+      local bundle=" \
+        --debug \
+        --directory"
+
+      COMPREPLY=($(compgen -W "${bundle}" -- ${cur}))
+      return 0
+      ;;
+
+    test-packages)
+      local testpackages=" \
+        --port -p \
+        --deploy \
+        --production \
+        --settings"
+
+      COMPREPLY=($(compgen -W "${testpackages}" -- ${cur}))
+      return 0
+      ;;
+
+    publish)
+      local publish=" \
+        --create"
+
+      COMPREPLY=($(compgen -W "${publish}" -- ${cur}))
+      return 0
+      ;;
+
+    publish-release)
+      local publishrelease=" \
+        --create-track"
+
+      COMPREPLY=($(compgen -W "${publishrelease}" -- ${cur}))
+      return 0
+      ;;
+
     deploy)
       local deploy=" \
         --delete -D \
@@ -72,15 +118,15 @@ _meteor() {
       return 0
       ;;
 
-    list)
-      local list=" \
-        --using"
+    login)
+      local login=" \
+        --email"
 
-      COMPREPLY=($(compgen -W "${list}" -- ${cur}))
+      COMPREPLY=($(compgen -W "${login}" -- ${cur}))
       return 0
       ;;
 
-    add)
+    add|claim|list|list-sites|logout|logs|publish-for-arch|reset|show|search|whoami)
       return 0
       ;;
 
