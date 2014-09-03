@@ -29,21 +29,21 @@ _meteor() {
       ;;
 
     authorized)
-      local authorized=" \
+      local options=" \
         --add \
         --remove \
         --list"
 
-      COMPREPLY=($(compgen -W "${authorized}" -- ${cur}))
+      COMPREPLY=($(compgen -W "${options}" -- ${cur}))
       return 0
       ;;
 
     bundle)
-      local bundle=" \
+      local options=" \
         --debug \
         --directory"
 
-      COMPREPLY=($(compgen -W "${bundle}" -- ${cur}))
+      COMPREPLY=($(compgen -W "${options}" -- ${cur}))
       return 0
       ;;
 
@@ -54,69 +54,69 @@ _meteor() {
           return 0
           ;;
       esac
-      local create=" \
+      local options=" \
         --example \
         --list"
 
-      COMPREPLY=($(compgen -W "${create}" -- ${cur}))
+      COMPREPLY=($(compgen -W "${options}" -- ${cur}))
       return 0
       ;;
 
     deploy)
-      local deploy=" \
+      local options=" \
         --delete -D \
         --debug \
         --settings \
         --star"
 
-      COMPREPLY=($(compgen -W "${deploy}" -- ${cur}))
+      COMPREPLY=($(compgen -W "${options}" -- ${cur}))
       return 0
       ;;
 
     login)
-      local login=" \
+      local options=" \
         --email"
 
-      COMPREPLY=($(compgen -W "${login}" -- ${cur}))
+      COMPREPLY=($(compgen -W "${options}" -- ${cur}))
       return 0
       ;;
 
     mongo)
-      local mongo=" \
+      local options=" \
         -U \
         --url"
 
-      COMPREPLY=($(compgen -W "${mongo}" -- ${cur}))
+      COMPREPLY=($(compgen -W "${options}" -- ${cur}))
       return 0
       ;;
 
     publish)
-      local publish=" \
+      local options=" \
         --create"
 
-      COMPREPLY=($(compgen -W "${publish}" -- ${cur}))
+      COMPREPLY=($(compgen -W "${options}" -- ${cur}))
       return 0
       ;;
 
     publish-release)
-      local publishrelease=" \
+      local options=" \
         --create-track"
 
-      COMPREPLY=($(compgen -W "${publishrelease}" -- ${cur}))
+      COMPREPLY=($(compgen -W "${options}" -- ${cur}))
       return 0
       ;;
 
     remove)
       if [[ -r .meteor/packages ]]
       then
-        installed=$( grep -v '^#' .meteor/packages )
+        options=$( grep -v '^#' .meteor/packages )
       fi
-      COMPREPLY=($(compgen -W "$installed" -- ${cur}))
+      COMPREPLY=($(compgen -W "${options}" -- ${cur}))
       return 0
       ;;
 
     run)
-      local run=" \
+      local options=" \
         --port -p \
         --production \
         --raw-logs \
@@ -124,26 +124,26 @@ _meteor() {
         --release \
         --program"
 
-      COMPREPLY=($(compgen -W "${run}" -- ${cur}))
+      COMPREPLY=($(compgen -W "${options}" -- ${cur}))
       return 0
       ;;
 
     test-packages)
-      local testpackages=" \
+      local options=" \
         --port -p \
         --deploy \
         --production \
         --settings"
 
-      COMPREPLY=($(compgen -W "${testpackages}" -- ${cur}))
+      COMPREPLY=($(compgen -W "${options}" -- ${cur}))
       return 0
       ;;
 
     update)
-      local update=" \
+      local options=" \
         --release"
 
-      COMPREPLY=($(compgen -W "${update}" -- ${cur}))
+      COMPREPLY=($(compgen -W "${options}" -- ${cur}))
       return 0
       ;;
 
