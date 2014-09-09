@@ -136,6 +136,8 @@ _meteor() {
 
     update)
       local options=" \
+        --packages-only \
+        --patch \
         --release"
 
       COMPREPLY=($(compgen -W "${options}" -- ${cur}))
