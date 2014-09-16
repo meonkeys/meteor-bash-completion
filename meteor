@@ -22,6 +22,15 @@ _meteor() {
   prev="${COMP_WORDS[COMP_CWORD-1]}"
 
   case "${cmd}" in
+    add-platform)
+      local options=" \
+        ios \
+        android"
+
+      COMPREPLY=($(compgen -W "${options}" -- ${cur}))
+      return 0
+      ;;
+
     authorized)
       local options=" \
         --add \
@@ -32,10 +41,11 @@ _meteor() {
       return 0
       ;;
 
-    bundle)
+    build)
       local options=" \
         --debug \
-        --directory"
+        --directory \
+        --settings"
 
       COMPREPLY=($(compgen -W "${options}" -- ${cur}))
       return 0
@@ -110,8 +120,16 @@ _meteor() {
       return 0
       ;;
 
+    remove-platform)
+      options=$( meteor list-platforms )
+      COMPREPLY=($(compgen -W "${options}" -- ${cur}))
+      return 0
+      ;;
+
     run)
       local options=" \
+        ios \
+        android \
         --port -p \
         --production \
         --raw-logs \
