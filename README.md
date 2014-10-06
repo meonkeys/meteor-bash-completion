@@ -12,6 +12,10 @@ For example: `meteor ad[Tab]` completes to `meteor add`.
 
     sudo wget https://gitlab.com/meonkeys/meteor-bash-completion/raw/master/meteor -O /etc/bash_completion.d/meteor
 
+# Known bugs
+
+Amazon Linux is missing the `_parse_usage` and `__parse_options` helpers.
+
 # Copyright, License
 
 Copyright (C)2014 Adam Monsen.
