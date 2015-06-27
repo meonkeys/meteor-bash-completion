@@ -60,6 +60,7 @@ _meteor() {
           ;;
       esac
       local options=" \
+        --package \
         --example \
         --list"
 
