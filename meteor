@@ -73,7 +73,7 @@ _meteor() {
         --delete -D \
         --debug \
         --settings \
-        --star"
+        --allow-incompatible-update"
 
       COMPREPLY=($(compgen -W "${options}" -- ${cur}))
       return 0
