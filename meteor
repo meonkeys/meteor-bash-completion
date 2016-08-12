@@ -115,7 +115,7 @@ _meteor() {
     remove)
       if [[ -r .meteor/packages ]]
       then
-        options=$( grep -v '^#' .meteor/packages )
+        options=$( grep -v '^#' .meteor/packages | cut -d' ' -f1 | cut -d'@' -f1)
       fi
       COMPREPLY=($(compgen -W "${options}" -- ${cur}))
       return 0
